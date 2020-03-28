@@ -58,11 +58,16 @@ export class MyCommand extends Command {
 
         //MAP RECORD
         var ids = records.map(function(i) {
-          return i.get('Name - Lastname');
+          return{
+            name: i.get('name'),
+            col: i.get('col')
+          } 
         });
+      
 
         //PAGINATE SORT RECORD
         var listCards = paginate(ids, 5, 1)
+        
 
         //LOOP RECORD
         var i = 0;
@@ -73,9 +78,9 @@ export class MyCommand extends Command {
             parent: mainHome,
             top: (i * 35) + '%',
             left: 'center',
-            width: '95%',
+            width: listCards[i].col + '%',
             height: '33%',
-            content: listCards[i],
+            content: listCards[i].name,
             style: {
               fg: '#000',
               bg: '#efefef',
