@@ -59,37 +59,51 @@ export class MyCommand extends Command {
         //MAP RECORD
         var ids = records.map(function(i) {
           return{
-            name: i.get('name'),
-            col: i.get('col')
+            content: i.get('content'),
+            col: i.get('col'),
+            row: i.get('row'),
+            left: i.get('left')
           } 
         });
       
 
         //PAGINATE SORT RECORD
-        var listCards = paginate(ids, 5, 1)
+        var listCards = paginate(ids, 100, 1)
         
 
         //LOOP RECORD
         var i = 0;
+        var toTop = 0;
+        var colSize = 35;
+
         while (i < listCards.length) {
-          
+
+          if(listCards[i].row == 0){
+            var toTop = toTop;
+          } 
+          else{
+            var toTop = toTop + colSize;
+          }
+
           //CARD
           var boxTwo = blessed.box({
             parent: mainHome,
-            top: (i * 35) + '%',
-            left: 'center',
+            top: toTop + '%',
+            left: listCards[i].left + '%',
             width: listCards[i].col + '%',
             height: '33%',
-            content: listCards[i].name,
+            content: listCards[i].content,
+            align: 'center',
+            valign: 'middle',
             style: {
               fg: '#000',
               bg: '#efefef',
             }
           });
-
-
+        
         //LOOP RECORD END
         i++;
+          
         }
 
       // Render the screen.
