@@ -18,6 +18,7 @@ export class MyCommand extends Command {
 
       return sliceIt;
     }
+    
 
     //BLESSED LAYOUT
     // Create a screen object.
@@ -44,13 +45,11 @@ export class MyCommand extends Command {
       return process.exit(0);
     });
     
-
-
     screen.append(mainHome);
     
 
     //START AIRTABLE LOOP
-    base('Yoworld').select({
+    base('live').select({
         view: "Grid view"
     }).eachPage(function page(records, fetchNextPage) {
 
@@ -60,9 +59,11 @@ export class MyCommand extends Command {
         var ids = records.map(function(i) {
           return{
             content: i.get('content'),
-            col: i.get('col'),
+            boxWidth: i.get('boxWidth'),
+            boxHeight: i.get('boxHeight'),
             row: i.get('row'),
-            left: i.get('left')
+            left: i.get('left'),
+            valign: i.get('valign')
           } 
         });
       
@@ -74,30 +75,42 @@ export class MyCommand extends Command {
         //LOOP RECORD
         var i = 0;
         var toTop = 0;
-        var colSize = 35;
 
         while (i < listCards.length) {
 
-          if(listCards[i].row == 0){
-            var toTop = toTop;
-          } 
-          else{
-            var toTop = toTop + colSize;
-          }
+        if (i == 1){
+          var toTop = toTop + listCards[0].boxHeight + 4;
+        } 
+        else if (listCards[i].row == 0){
+          var toTop = toTop;
+        } 
+        else{
+          var toTop = toTop + listCards[i].boxHeight + 4;
+        }
+
+          console.log(toTop)
 
           //CARD
           var boxTwo = blessed.box({
             parent: mainHome,
             top: toTop + '%',
             left: listCards[i].left + '%',
-            width: listCards[i].col + '%',
-            height: '33%',
+            width: listCards[i].boxWidth + '%',
+            height: listCards[i].boxHeight + '%',
             content: listCards[i].content,
-            align: 'center',
-            valign: 'middle',
+            valign: listCards[i].valign,
+            padding: 3,
+            tags: true,
+            border:{
+              type: 'bg',
+              ch:'z',
+              bg: '#4A70B6',
+              fg:'#D386B9',
+            },
             style: {
               fg: '#000',
               bg: '#efefef',
+              bold: true,
             }
           });
         
