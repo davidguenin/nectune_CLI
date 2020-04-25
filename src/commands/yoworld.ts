@@ -22,7 +22,7 @@ export class MyCommand extends Command {
       }
     }
     
-    var nectuneData = await logFetch('https://www.nectune.com/api.json');
+    var nectuneData = await logFetch('https://www.nectune.com/api.json?token='+process.env.API_NECTUNE_KEY);
 
 
 
@@ -53,6 +53,18 @@ export class MyCommand extends Command {
     
     screen.append(mainHome);
     
+    
+    //HEADER
+    var liveHeader = blessed.box({
+      parent: mainHome,
+      top: '0',
+      left: 'center',
+      width: '100%',
+      height: '35%',
+      valign: 'middle',
+      content: nectuneData.tagline,
+      tag: true,
+    });
 
 
     //MAP RECORD
@@ -64,24 +76,30 @@ export class MyCommand extends Command {
         row: i.row,
         left: i.left,
         valign: i.valign,
-        padding: i.padding,
+        top: i.top,
+        bg: i.bg,
+        fg: i.fg,
+        border_fg: i.border_fg,
+        border_bg: i.border_bg,
+        border_type: i.border_type,
+        border_ch: i.border_ch,
       } 
     });
       
 
     //LOOP RECORD
     var i = 0;
-    var toTop = 0;
+    var toTop = 35;
 
     while (i < listCards.length) {
 
-    if (i == 1){
-      var toTop = toTop + listCards[0].boxHeight + 4;
-    } 
-    else if (listCards[i].row == 0){
+    if (i == 0){
+      toTop = toTop;
+    }
+    else if (listCards[i].top == 0){
       var toTop = toTop;
     } 
-    else{
+    else if (listCards[i].top == 1){
       var toTop = toTop + listCards[i].boxHeight + 4;
     }
 
@@ -95,18 +113,16 @@ export class MyCommand extends Command {
       height: listCards[i].boxHeight + '%',
       content: listCards[i].content,
       valign: listCards[i].valign,
-      padding: listCards[i].padding,
       tags: true,
       border:{
-        type: 'bg',
-        ch:'z',
-        bg: '#4A70B6',
-        fg:'#D386B9',
+        type: listCards[i].border_type,
+        ch: listCards[i].border_ch,
+        bg: listCards[i].border_bg,
+        fg: listCards[i].border_fg,
       },
       style: {
-        fg: '#000',
-        bg: '#efefef',
-        bold: true,
+        fg: listCards[i].fg,
+        bg: listCards[i].bg,
       }
     });
   
