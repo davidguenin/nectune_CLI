@@ -32,12 +32,16 @@ export class MyCommand extends Command {
       smartCSR: true
     });
 
+    screen.key(['escape', 'q', 'C-c'], function(ch, key) {
+      return process.exit(0);
+    });
+
     screen.title = 'Nectune homepage';
 
     var mainHome = blessed.box({
       top: '0%',
       left: 'center',
-      width: '60%',
+      width: '75%',
       height: '100%',
       scrollable: true,
       keys: true,
@@ -45,10 +49,6 @@ export class MyCommand extends Command {
       scrollbar: {
         bg: 'blue'
       },
-    });
-
-    screen.key(['escape', 'q', 'C-c'], function(ch, key) {
-      return process.exit(0);
     });
     
     screen.append(mainHome);
@@ -59,13 +59,35 @@ export class MyCommand extends Command {
       parent: mainHome,
       top: '0',
       left: 'center',
-      width: '100%',
       height: '35%',
       valign: 'middle',
-      content: nectuneData.tagline,
-      tag: true,
+      content: nectuneData.header,
     });
 
+
+    //LEFT
+    var left = blessed.box({
+      top: '0',
+      left: '0',
+      height: '100%',
+      width: '12.5%',
+      content:  nectuneData.left,
+    });
+
+    screen.append(left);
+
+    //RIGHT
+    var right = blessed.box({
+      top: '0',
+      right: '0',
+      height: '100%',
+      width: '12.5%',
+      content:  nectuneData.right,
+    });
+
+    screen.append(right);
+
+    
 
     //MAP RECORD
     var listCards = nectuneData.cards.map(function(i) {
@@ -76,6 +98,7 @@ export class MyCommand extends Command {
         row: i.row,
         left: i.left,
         valign: i.valign,
+        padding: i.padding,
         top: i.top,
         bg: i.bg,
         fg: i.fg,
@@ -123,6 +146,12 @@ export class MyCommand extends Command {
       style: {
         fg: listCards[i].fg,
         bg: listCards[i].bg,
+      },
+      padding: {
+        left: listCards[i].padding,
+        right: listCards[i].padding,
+        bottom: listCards[i].padding,
+        top: listCards[i].padding
       }
     });
   
