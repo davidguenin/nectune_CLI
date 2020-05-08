@@ -9,7 +9,6 @@ export class MyCommand extends Command {
 
   async run() {
 
-
     
     //FETCH DATA NECTUNE API
     async function logFetch(url) {
@@ -23,7 +22,6 @@ export class MyCommand extends Command {
     }
     
     var nectuneData = await logFetch('https://www.nectune.com/api.json?token='+process.env.API_NECTUNE_KEY);
-
 
 
     //BLESSED LAYOUT
@@ -42,7 +40,6 @@ export class MyCommand extends Command {
       top: '0%',
       left: 'center',
       width: '75%',
-      height: '100%',
       scrollable: true,
       keys: true,
       alwaysScroll: true,
@@ -88,7 +85,6 @@ export class MyCommand extends Command {
     screen.append(right);
 
     
-
     //MAP RECORD
     var listCards = nectuneData.cards.map(function(i) {
       return{
@@ -112,7 +108,7 @@ export class MyCommand extends Command {
 
     //LOOP RECORD
     var i = 0;
-    var toTop = 35;
+    var toTop = 22;
 
     while (i < listCards.length) {
 
@@ -123,17 +119,17 @@ export class MyCommand extends Command {
       var toTop = toTop;
     } 
     else if (listCards[i].top == 1){
-      var toTop = toTop + listCards[i].boxHeight + 4;
+      var toTop = toTop + listCards[i-1].boxHeight + 1;
     }
 
 
     //CARD
     var boxTwo = blessed.box({
       parent: mainHome,
-      top: toTop + '%',
+      top: toTop,
       left: listCards[i].left + '%',
       width: listCards[i].boxWidth + '%',
-      height: listCards[i].boxHeight + '%',
+      height: listCards[i].boxHeight,
       content: listCards[i].content,
       valign: listCards[i].valign,
       tags: true,
