@@ -39,12 +39,12 @@ export class MyCommand extends Command {
     var mainHome = blessed.box({
       top: '0%',
       left: 'center',
-      width: '75%',
+      width: 125,
       scrollable: true,
+      alwaysScroll: true, 
       keys: true,
-      alwaysScroll: true,
       scrollbar: {
-        bg: 'blue'
+        bg: 'white'
       },
     });
     
@@ -54,8 +54,8 @@ export class MyCommand extends Command {
     //HEADER
     var liveHeader = blessed.box({
       parent: mainHome,
-      top: '0',
-      left: 'center',
+      top: '0%',
+      left: 25,
       height: '35%',
       valign: 'middle',
       content: nectuneData.header,
@@ -67,7 +67,7 @@ export class MyCommand extends Command {
       top: '0',
       left: '0',
       height: '100%',
-      width: '12.5%',
+      width: '10%',
       content:  nectuneData.left,
     });
 
@@ -78,7 +78,7 @@ export class MyCommand extends Command {
       top: '0',
       right: '0',
       height: '100%',
-      width: '12.5%',
+      width: '10%',
       content:  nectuneData.right,
     });
 
@@ -127,12 +127,13 @@ export class MyCommand extends Command {
     var boxTwo = blessed.box({
       parent: mainHome,
       top: toTop,
-      left: listCards[i].left + '%',
-      width: listCards[i].boxWidth + '%',
+      left: listCards[i].left,
+      width: listCards[i].boxWidth,
       height: listCards[i].boxHeight,
       content: listCards[i].content,
       valign: listCards[i].valign,
       tags: true,
+      shrink: true,
       border:{
         type: listCards[i].border_type,
         ch: listCards[i].border_ch,
