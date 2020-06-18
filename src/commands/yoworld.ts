@@ -1,28 +1,41 @@
 import Command from '@oclif/command'
-require('dotenv').config()
 const fetch = require('node-fetch');
 var blessed = require('blessed');
 
 
+export class YoWorld extends Command {
 
-export class MyCommand extends Command {
+  // CLI CONFIG
+  static args = [
+    {name: 'edition'},
+  ]
 
   async run() {
 
-    
     //FETCH DATA NECTUNE API
     async function logFetch(url) {
       try {
         const response = await fetch(url);
-        return response.json();
+        if (response.ok) {
+          return response.json();
+        } else {
+          console.log('Ouuups no content here...');
+        }
       }
       catch (err) {
         console.log('fetch failed', err);
       }
     }
-    
-    var nectuneData = await logFetch('https://www.nectune.com/api.json?token='+process.env.API_NECTUNE_KEY);
 
+    // FETCH WITH ARGS
+    const {args} = this.parse(YoWorld)    
+
+    if (args.edition) {
+      var nectuneData = await logFetch('https://www.nectune.com/lives/'+ args.edition  +'.json');
+    }
+    else{
+      var nectuneData = await logFetch('https://www.nectune.com/lives.json');
+    }
 
     //BLESSED LAYOUT
     // Create a screen object.
@@ -50,7 +63,6 @@ export class MyCommand extends Command {
     
     screen.append(mainHome);
     
-    
     //HEADER
     var liveHeader = blessed.box({
       parent: mainHome,
@@ -60,7 +72,6 @@ export class MyCommand extends Command {
       valign: 'middle',
       content: nectuneData.header,
     });
-
 
     //LEFT
     var left = blessed.box({
@@ -83,15 +94,13 @@ export class MyCommand extends Command {
     });
 
     screen.append(right);
-
-    
+ 
     //MAP RECORD
     var listCards = nectuneData.cards.map(function(i) {
       return{
         content: i.content,
         boxWidth: i.width,
         boxHeight: i.height,
-        row: i.row,
         left: i.left,
         valign: i.valign,
         padding: i.padding,
@@ -105,7 +114,6 @@ export class MyCommand extends Command {
       } 
     });
       
-
     //LOOP RECORD
     var i = 0;
     var toTop = 22;
@@ -160,6 +168,5 @@ export class MyCommand extends Command {
   // Render the screen.
   screen.render();
               
-
   }
 }
