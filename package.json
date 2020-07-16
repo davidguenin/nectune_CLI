@@ -43,7 +43,8 @@
     "bin": "nectune",
     "plugins": [
       "@oclif/plugin-help"
-    ]
+    ],
+    "helpClass": "./lib/help"
   },
   "repository": "davdevdesign/nectune",
   "scripts": {
