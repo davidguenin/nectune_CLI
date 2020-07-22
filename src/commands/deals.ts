@@ -5,11 +5,6 @@ var blessed = require('blessed');
 
 export class Deals extends Command {
 
-  // CLI CONFIG
-  static args = [
-    {name: 'edition'},
-  ]
-
   async run() {
 
     //FETCH DATA NECTUNE API
@@ -27,16 +22,8 @@ export class Deals extends Command {
       }
     }
 
-    // FETCH WITH ARGS
-    const {args} = this.parse(Deals)    
-
-    if (args.edition) {
-      var nectuneData = await logFetch('https://www.nectune.com/deals/'+ args.edition  +'.json');
-    }
-    else{
-      var nectuneData = await logFetch('https://www.nectune.com/deals.json');
-    }
-
+    var nectuneData = await logFetch('https://www.nectune.com/deals.json');
+    
     //MAP CUSTOM VALUES
     var customValues = nectuneData.custom_values.map(function(i) {
       return{
@@ -70,6 +57,8 @@ export class Deals extends Command {
         price: i.price.toString(),
         link: i.link,
         category: i.category,
+        mention: i.mention,
+        color: i.color,
       } 
     });
 
@@ -86,15 +75,12 @@ export class Deals extends Command {
     screen.title = customText( "screen_title");
 
     var mainHome = blessed.box({
-      top:  customText( "main_box_top") + '%',
+      top:  '0%',
       left: 'center',
       width: customNumber( "main_box_width"),
       scrollable: true,
       alwaysScroll: true, 
-      keys: true,
-      scrollbar: {
-        bg: 'white'
-      },
+      keys: true
     });
     
     screen.append(mainHome);
@@ -102,19 +88,19 @@ export class Deals extends Command {
     //HEADER
     var liveHeader = blessed.box({
       parent: mainHome,
-      top: '0%',
-      left: 25,
-      height: '35%',
-      valign: 'middle',
+      top: customText( "header_top") + '%',
+      left: customNumber( "header_left"),
+      height: customText( "header_height") + '%',
+      valign: customText( "header_valign"),
       content: nectuneData.header,
     });
 
     //LEFT
     var left = blessed.box({
-      top: '0',
-      left: '0',
-      height: '100%',
-      width: '10%',
+      top: customText( "left_top"),
+      left: customText( "left_left"),
+      height: customText( "left_height") + '%',
+      width: customText( "left_width") + '%',
       content:  nectuneData.left,
     });
 
@@ -122,10 +108,10 @@ export class Deals extends Command {
 
     //RIGHT
     var right = blessed.box({
-      top: '0',
-      right: '0',
-      height: '100%',
-      width: '10%',
+      top: customText( "right_top"),
+      right: customText( "right_right"),
+      height: customText( "right_height") + '%',
+      width: customText( "right_width") + '%',
       content:  nectuneData.right,
     });
 
@@ -147,10 +133,10 @@ export class Deals extends Command {
     var calclineBreaks = Math.round(lineBreaks / 2)
     
     if (contentlines <= 1){
-      contentHeight = 10
+      contentHeight = 10 + customNumber( "box_container_height")
     }
     else{
-      contentHeight = (contentlines * 5 ) + calclineBreaks
+      contentHeight = (contentlines * 5 ) + calclineBreaks + customNumber( "box_container_height")
     }
 
     //Push to total height array
@@ -168,17 +154,17 @@ export class Deals extends Command {
     var boxContainer = blessed.box({
       parent: mainHome,
       height: contentHeight,
-      width: 125,
+      width: customNumber( "box_container_width"),
       top: toTop,
-      padding: 1,
+      padding: customNumber( "box_container_padding"),
       tags: true,
       shrink: true,
       scrollable: true,
       alwaysScroll: true,
-      border: 'line',
+      border: customText( "box_container_border"),
       style:{
         border:{
-          fg: '#6D6D6D'
+          fg: customText( "box_container_border_color")
         }
       }
     });
@@ -186,9 +172,9 @@ export class Deals extends Command {
     //TITLE
     var boxTitle = blessed.box({
       parent: boxContainer,
-      content: '{bold}{#1F6EC3-bg}' + listDeals[i].tagline + '{/}',
-      top: 0,
-      left: 0,
+      content: '{bold}{' + listDeals[i].color + '-bg}' + listDeals[i].tagline + '{/}',
+      top: customNumber( "box_title_top"),
+      left: customNumber( "box_title_left"),
       tags: true,
       shrink: true,
     });
@@ -197,8 +183,8 @@ export class Deals extends Command {
     var boxCategory = blessed.box({
       parent: boxContainer,
       content: listDeals[i].category,
-      top: 0,
-      right: 0,
+      top: customNumber( "box_category_top"),
+      right: customNumber( "box_category_right"),
       tags: true,
       shrink: true,
     });
@@ -207,7 +193,7 @@ export class Deals extends Command {
     var boxContent = blessed.box({
       parent: boxContainer,
       content: listDeals[i].content,
-      top: 3,
+      top: customNumber( "box_content_top"),
       tags: true,
       shrink: true,
     });
@@ -216,7 +202,8 @@ export class Deals extends Command {
     var boxLink = blessed.box({
       parent: boxContainer,
       content: '-> ' + listDeals[i].link ,
-      bottom: 0,
+      bottom: customNumber( "box_link_bottom"),
+      left: customNumber( "box_link_left"),
       tags: true,
       shrink: true,
     });
@@ -224,13 +211,13 @@ export class Deals extends Command {
     //PRICE
     var boxPrice = blessed.box({
       parent: boxContainer,
-      content: listDeals[i].price + ' $',
-      bottom: 0,
-      right: 0,
+      content: listDeals[i].price + ' $ ' + listDeals[i].mention,
+      bottom: customNumber( "box_price_bottom"),
+      right: customNumber( "box_price_right"),
       tags: true,
       shrink: true,
-    });
-  
+    });   
+
   //LOOP RECORD END
   i++;
     
