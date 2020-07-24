@@ -74,6 +74,7 @@ export class Deals extends Command {
 
     screen.title = customText( "screen_title");
 
+    // MAIN CONTAINER
     var mainHome = blessed.box({
       top:  '0%',
       left: 'center',

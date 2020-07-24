@@ -37,6 +37,31 @@ export class YoWorld extends Command {
       var nectuneData = await logFetch('https://www.nectune.com/lives.json');
     }
 
+    //MAP CUSTOM VALUES
+    var customValues = nectuneData.custom_values.map(function(i) {
+      return{
+        title: i.title,
+        value: i.value,
+        content: i.content,
+      } 
+    });
+
+    //RETURN A CUSTOM VALUE STRING -> VALUE
+    function customText(title){
+      var findTitle = customValues.find(obj => {
+        return obj.title === title
+      })
+      return findTitle.value; 
+    }
+
+    //RETURN A CUSTOM VALUE NUMBER -> VALUE
+    function customNumber(title){
+      var findTitle = customValues.find(obj => {
+        return obj.title === title
+      })
+      return parseInt(findTitle.value); 
+    }
+
     //BLESSED LAYOUT
     // Create a screen object.
     var screen = blessed.screen({
@@ -47,12 +72,13 @@ export class YoWorld extends Command {
       return process.exit(0);
     });
 
-    screen.title = 'Nectune homepage';
+    screen.title = customText( "screen_title");
 
+    // MAIN CONTAINER
     var mainHome = blessed.box({
       top: '0%',
       left: 'center',
-      width: 125,
+      width: customNumber( "main_box_width"),
       scrollable: true,
       alwaysScroll: true, 
       keys: true,
@@ -66,19 +92,19 @@ export class YoWorld extends Command {
     //HEADER
     var liveHeader = blessed.box({
       parent: mainHome,
-      top: '0%',
-      left: 25,
-      height: '35%',
-      valign: 'middle',
+      top: customText( "header_top") + '%',
+      left: customNumber( "header_left"),
+      height: customText( "header_height") + '%',
+      valign: customText( "header_valign"),
       content: nectuneData.header,
     });
 
     //LEFT
     var left = blessed.box({
-      top: '0',
-      left: '0',
-      height: '100%',
-      width: '10%',
+      top: customText( "left_top"),
+      left: customText( "left_left"),
+      height: customText( "left_height") + '%',
+      width: customText( "left_width") + '%',
       content:  nectuneData.left,
     });
 
@@ -86,10 +112,10 @@ export class YoWorld extends Command {
 
     //RIGHT
     var right = blessed.box({
-      top: '0',
-      right: '0',
-      height: '100%',
-      width: '10%',
+      top: customText( "right_top"),
+      right: customText( "right_right"),
+      height: customText( "right_height") + '%',
+      width: customText( "right_width") + '%',
       content:  nectuneData.right,
     });
 
