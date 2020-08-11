@@ -5,6 +5,13 @@ var blessed = require('blessed');
 
 export class Deals extends Command {
 
+  // CLI CONFIG
+  static args = [
+    {name: 'tag_one'},
+    {name: 'tag_two'},
+    {name: 'tag_three'}
+  ]
+
   async run() {
 
     //FETCH DATA NECTUNE API
@@ -22,7 +29,21 @@ export class Deals extends Command {
       }
     }
 
-    var nectuneData = await logFetch('https://www.nectune.com/deals.json');
+    // FETCH WITH ARGS
+    const {args} = this.parse(Deals)    
+
+    if (args.tag_one && !args.tag_two && !args.tag_three) {
+      var nectuneData = await logFetch('https://www.nectune.com/deals.json/?tag_one='+ args.tag_one);
+    }
+    else if (args.tag_one && args.tag_two && !args.tag_three) {
+      var nectuneData = await logFetch('https://www.nectune.com/deals.json/?tag_one='+ args.tag_one +'&tag_two='+ args.tag_two);
+    }
+    else if (args.tag_one && args.tag_two && args.tag_three) {
+      var nectuneData = await logFetch('https://www.nectune.com/deals.json/?tag_one='+ args.tag_one +'&tag_two='+ args.tag_two +'&tag_three='+ args.tag_three);
+    }
+    else{
+      var nectuneData = await logFetch('https://www.nectune.com/deals.json');
+    }
     
     //MAP CUSTOM VALUES
     var customValues = nectuneData.custom_values.map(function(i) {
@@ -56,7 +77,9 @@ export class Deals extends Command {
         tagline: i.tagline,
         price: i.price.toString(),
         link: i.link,
-        category: i.category,
+        tag_one: i.tag_one,
+        tag_two: i.tag_two,
+        tag_three: i.tag_three,
         mention: i.mention,
         color: i.color,
       } 
@@ -180,10 +203,10 @@ export class Deals extends Command {
       shrink: true,
     });
 
-    //CATEGORY
+    //TAGS
     var boxCategory = blessed.box({
       parent: boxContainer,
-      content: listDeals[i].category,
+      content: listDeals[i].tag_one + ' ' +  listDeals[i].tag_two + ' ' +  listDeals[i].tag_three,
       top: customNumber( "box_category_top"),
       right: customNumber( "box_category_right"),
       tags: true,
