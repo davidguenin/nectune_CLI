@@ -54,6 +54,14 @@ export class YoWorld extends Command {
       return findTitle.value; 
     }
 
+    //RETURN A CUSTOM VALUE CONTENT
+    function customContent(title){
+      var findTitle = customValues.find(obj => {
+        return obj.title === title
+      })
+      return findTitle.content; 
+    }
+
     //RETURN A CUSTOM VALUE NUMBER -> VALUE
     function customNumber(title){
       var findTitle = customValues.find(obj => {
@@ -97,6 +105,15 @@ export class YoWorld extends Command {
       height: customText( "header_height") + '%',
       valign: customText( "header_valign"),
       content: nectuneData.header,
+    });
+
+    //NOTIFICATION
+    var notifHeader = blessed.box({
+      parent: liveHeader,
+      bottom: customNumber( "notif_bottom"),
+      height: customNumber( "notif_height"),
+      content: customContent( "notif_content"),
+      tags: true,
     });
 
     //LEFT
