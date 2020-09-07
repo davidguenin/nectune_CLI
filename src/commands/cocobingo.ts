@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 var blessed = require('blessed');
 
 
-export class YoWorld extends Command {
+export class CocoBingo extends Command {
 
   // CLI CONFIG
   static args = [
@@ -28,7 +28,7 @@ export class YoWorld extends Command {
     }
 
     // FETCH WITH ARGS
-    const {args} = this.parse(YoWorld)    
+    const {args} = this.parse(CocoBingo)    
 
     if (args.edition) {
       var nectuneData = await logFetch('https://www.nectune.com/games/'+ args.edition  +'.json');

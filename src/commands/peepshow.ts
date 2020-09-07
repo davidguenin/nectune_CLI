@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 var blessed = require('blessed');
 
 
-export class Deals extends Command {
+export class PeepShow extends Command {
 
   // CLI CONFIG
   static args = [
@@ -30,7 +30,7 @@ export class Deals extends Command {
     }
 
     // FETCH WITH ARGS
-    const {args} = this.parse(Deals)    
+    const {args} = this.parse(PeepShow)    
 
     if (args.tag_one && !args.tag_two && !args.tag_three) {
       var nectuneData = await logFetch('https://www.nectune.com/deals.json/?tag_one='+ args.tag_one);

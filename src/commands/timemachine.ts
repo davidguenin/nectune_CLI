@@ -2,7 +2,7 @@ import Command from '@oclif/command'
 const fetch = require('node-fetch');
 var blessed = require('blessed');
 
-export default class Archives extends Command {
+export default class Timemachine extends Command {
 
   async run() {
 
@@ -21,7 +21,7 @@ export default class Archives extends Command {
       }
     }
 
-    var nectuneData = await logFetch('https://www.nectune.com/lives-list.json');
+    var nectuneData = await logFetch('https://www.nectune.com/timemachine.json');
 
     //MAP CUSTOM VALUES
     var customValues = nectuneData.custom_values.map(function(i) {
@@ -57,7 +57,7 @@ export default class Archives extends Command {
     }
 
     //MAP RECORD
-    var listLives = nectuneData.lives.map(function(i) {
+    var listLives = nectuneData.list.map(function(i) {
       return{
         tagline: i.tagline,
         edition: i.edition,
