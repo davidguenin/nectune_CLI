@@ -15,7 +15,7 @@ export class PeepShow extends Command {
   async run() {
 
     //FETCH DATA NECTUNE API
-    async function logFetch(url) {
+    async function logFetch(url: string) {
       try {
         const response = await fetch(url);
         if (response.ok) {
@@ -46,7 +46,7 @@ export class PeepShow extends Command {
     }
     
     //MAP CUSTOM VALUES
-    var customValues = nectuneData.custom_values.map(function(i) {
+    var customValues = nectuneData.custom_values.map(function(i: { title: any; value: any; content: any; }) {
       return{
         title: i.title,
         value: i.value,
@@ -55,31 +55,31 @@ export class PeepShow extends Command {
     });
 
     //RETURN A CUSTOM VALUE STRING -> VALUE
-    function customText(title){
-      var findTitle = customValues.find(obj => {
+    function customText(title: string){
+      var findTitle = customValues.find((obj: { title: any; }) => {
         return obj.title === title
       })
       return findTitle.value; 
     }
 
     //RETURN A CUSTOM VALUE CONTENT
-    function customContent(title){
-      var findTitle = customValues.find(obj => {
+    function customContent(title: string){
+      var findTitle = customValues.find((obj: { title: any; }) => {
         return obj.title === title
       })
       return findTitle.content; 
     }
 
     //RETURN A CUSTOM VALUE NUMBER -> VALUE
-    function customNumber(title){
-      var findTitle = customValues.find(obj => {
+    function customNumber(title: string){
+      var findTitle = customValues.find((obj: { title: any; }) => {
         return obj.title === title
       })
       return parseInt(findTitle.value); 
     }
 
     //MAP DEALS
-    var listDeals = nectuneData.deals.map(function(i) {
+    var listDeals = nectuneData.deals.map(function(i: { content: any; tagline: any; price: { toString: () => any; }; link: any; tag_one: any; tag_two: any; tag_three: any; mention: any; color: any; }) {
       return{
         content: i.content,
         tagline: i.tagline,
@@ -99,7 +99,7 @@ export class PeepShow extends Command {
       smartCSR: true
     });
 
-    screen.key(['escape', 'q', 'C-c'], function(ch, key) {
+    screen.key(['escape', 'q', 'C-c'], function(ch: any, key: any) {
       return process.exit(0);
     });
 

@@ -13,7 +13,7 @@ export class YoWorld extends Command {
   async run() {
 
     //FETCH DATA NECTUNE API
-    async function logFetch(url) {
+    async function logFetch(url: string) {
       try {
         const response = await fetch(url);
         if (response.ok) {
@@ -38,7 +38,7 @@ export class YoWorld extends Command {
     }
 
     //MAP CUSTOM VALUES
-    var customValues = nectuneData.custom_values.map(function(i) {
+    var customValues = nectuneData.custom_values.map(function(i: { title: any; value: any; content: any; }) {
       return{
         title: i.title,
         value: i.value,
@@ -47,24 +47,24 @@ export class YoWorld extends Command {
     });
 
     //RETURN A CUSTOM VALUE STRING -> VALUE
-    function customText(title){
-      var findTitle = customValues.find(obj => {
+    function customText(title: string){
+      var findTitle = customValues.find((obj: { title: any; }) => {
         return obj.title === title
       })
       return findTitle.value; 
     }
 
     //RETURN A CUSTOM VALUE CONTENT
-    function customContent(title){
-      var findTitle = customValues.find(obj => {
+    function customContent(title: string){
+      var findTitle = customValues.find((obj: { title: any; }) => {
         return obj.title === title
       })
       return findTitle.content; 
     }
 
     //RETURN A CUSTOM VALUE NUMBER -> VALUE
-    function customNumber(title){
-      var findTitle = customValues.find(obj => {
+    function customNumber(title: string){
+      var findTitle = customValues.find((obj: { title: any; }) => {
         return obj.title === title
       })
       return parseInt(findTitle.value); 
@@ -76,7 +76,7 @@ export class YoWorld extends Command {
       smartCSR: true
     });
 
-    screen.key(['escape', 'q', 'C-c'], function(ch, key) {
+    screen.key(['escape', 'q', 'C-c'], function(ch: any, key: any) {
       return process.exit(0);
     });
 
@@ -139,7 +139,7 @@ export class YoWorld extends Command {
     screen.append(right);
  
     //MAP RECORD
-    var listCards = nectuneData.cards.map(function(i) {
+    var listCards = nectuneData.cards.map(function(i: { content: any; width: any; height: any; left: any; valign: any; padding: any; top: any; bg: any; fg: any; border_fg: any; border_bg: any; border_type: any; border_ch: any; }) {
       return{
         content: i.content,
         boxWidth: i.width,
@@ -170,9 +170,8 @@ export class YoWorld extends Command {
       var toTop = toTop;
     } 
     else if (listCards[i].top == 1){
-      var toTop = toTop + listCards[i-1].boxHeight + 1;
+      var toTop = Number(toTop + listCards[i-1].boxHeight + 1);
     }
-
 
     //CARD
     var boxTwo = blessed.box({

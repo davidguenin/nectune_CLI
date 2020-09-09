@@ -7,7 +7,7 @@ export default class Timemachine extends Command {
   async run() {
 
     //FETCH DATA NECTUNE API
-    async function logFetch(url) {
+    async function logFetch(url: string) {
       try {
         const response = await fetch(url);
         if (response.ok) {
@@ -24,7 +24,7 @@ export default class Timemachine extends Command {
     var nectuneData = await logFetch('https://www.nectune.com/timemachine.json');
 
     //MAP CUSTOM VALUES
-    var customValues = nectuneData.custom_values.map(function(i) {
+    var customValues = nectuneData.custom_values.map(function(i: { title: any; value: any; content: any; }) {
       return{
         title: i.title,
         value: i.value,
@@ -33,31 +33,31 @@ export default class Timemachine extends Command {
     });
 
     //RETURN A CUSTOM VALUE STRING -> VALUE
-    function customText(title){
-      var findTitle = customValues.find(obj => {
+    function customText(title: string){
+      var findTitle = customValues.find((obj: { title: any; }) => {
         return obj.title === title
       })
       return findTitle.value; 
     }
 
     //RETURN A CUSTOM VALUE CONTENT
-    function customContent(title){
-      var findTitle = customValues.find(obj => {
+    function customContent(title: string){
+      var findTitle = customValues.find((obj: { title: any; }) => {
         return obj.title === title
       })
       return findTitle.content; 
     }
 
     //RETURN A CUSTOM VALUE NUMBER -> VALUE
-    function customNumber(title){
-      var findTitle = customValues.find(obj => {
+    function customNumber(title: string){
+      var findTitle = customValues.find((obj: { title: any; }) => {
         return obj.title === title
       })
       return parseInt(findTitle.value); 
     }
 
     //MAP RECORD
-    var listLives = nectuneData.list.map(function(i) {
+    var listLives = nectuneData.list.map(function(i: { tagline: any; edition: any; date: any; }) {
       return{
         tagline: i.tagline,
         edition: i.edition,
@@ -71,7 +71,7 @@ export default class Timemachine extends Command {
       smartCSR: true
     });
 
-    screen.key(['escape', 'q', 'C-c'], function(ch, key) {
+    screen.key(['escape', 'q', 'C-c'], function(ch: any, key: any) {
       return process.exit(0);
     });
 
