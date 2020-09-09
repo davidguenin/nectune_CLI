@@ -41,11 +41,6 @@
   "oclif": {
     "commands": "./lib/commands",
     "bin": "nectune",
-    "update": {
-      "s3": {
-        "bucket": "nectune-cli"
-      }
-    },
     "plugins": [
       "@oclif/plugin-help"
     ],
