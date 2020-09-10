@@ -44,7 +44,10 @@
     "plugins": [
       "@oclif/plugin-help"
     ],
-    "helpClass": "./lib/help"
+    "helpClass": "./lib/help",
+    "macos": {
+      "identifier": "com.nectune.cli"
+    }
   },
   "repository": "davdevdesign/nectune",
   "scripts": {
