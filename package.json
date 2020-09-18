@@ -11,14 +11,17 @@
     "@oclif/command": "^1.8.0",
     "@oclif/config": "^1.17.0",
     "@oclif/plugin-help": "^2",
-    "blessed": "^0.1.81",
+    "chalk": "^4.1.0",
+    "chalk-animation": "^1.6.0",
+    "columnify": "^1.5.4",
     "dotenv": "^8.2.0",
+    "node-emoji": "^1.10.0",
     "node-fetch": "^2.6.1",
     "tslib": "^2.0.1"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1",
-    "@types/node": "^10.17.30",
+    "@types/node": "^10.17.31",
     "globby": "^10",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.7"
