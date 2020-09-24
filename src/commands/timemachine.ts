@@ -1,5 +1,9 @@
 import Command from '@oclif/command'
 const fetch = require('node-fetch');
+const chalk = require('chalk');
+var columnify = require('columnify')
+const chalkAnimation = require('chalk-animation');
+
 
 export default class Timemachine extends Command {
 
@@ -38,11 +42,87 @@ export default class Timemachine extends Command {
         } 
       });
 
-      //LOOP RECORD
-      for (let i = 0 ; i < listLives.length ; i++) {
-      console.log(listLives[i].tagline);
+      var customValues = nectuneData.custom_values.map(function(i: { title: any; value: any; content: any; }) {
+        return{
+          title: i.title,
+          value: i.value,
+          content: i.content,
+        } 
+      });
 
+      //RETURN A CUSTOM VALUE STRING -> VALUE
+      function customText(title: string){
+        var findTitle = customValues.find((obj: { title: any; }) => {
+          return obj.title === title
+        })
+        return findTitle.value; 
       }
+
+      //RETURN A CUSTOM VALUE CONTENT
+      function customContent(title: string){
+        var findTitle = customValues.find((obj: { title: any; }) => {
+          return obj.title === title
+        })
+        return findTitle.content; 
+      }
+
+      //RETURN A CUSTOM VALUE NUMBER -> VALUE
+      function customNumber(title: string){
+        var findTitle = customValues.find((obj: { title: any; }) => {
+          return obj.title === title
+        })
+        return parseInt(findTitle.value); 
+      }
+
+      //RETURN NOTIFICATION
+      console.log(chalk.bold.red(customText( "notification")));
+
+      //RETURN HEADER
+      console.log(customContent( "header"));
+      
+
+      //LOOP MESSAGES
+      var data = []
+          
+      for (let i = 0 ; i < listLives.length ; i++) {
+        data.push({
+          edition: listLives[i].edition,
+          title: listLives[i].tagline,
+          date: listLives[i].date,
+        })
+        // CREATE A MARGIN BOTTOM WITH BLANK COLUMN
+        data.push({
+          edition: "",
+          title: "",
+          date: "",
+        })
+      }
+
+      var columns = columnify(
+        data,{
+          config:{
+            edition:{
+              minWidth: customNumber( "min_width_edition"),
+            },
+            title:{
+              minWidth: customNumber( "min_width_title"),
+            },
+            date:{
+              minWidth: customNumber( "min_width_date"),
+            }
+          }
+        },
+        
+      )
+    
+      console.log(columns)
+
+      //ANIMATION
+      const glitch = chalkAnimation.glitch(customContent( "animation"));
+      setTimeout(() => {
+        glitch.stop(); // Animation stops
+      }, customNumber( "animation_stop"));
+
     }
 
   }

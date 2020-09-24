@@ -74,7 +74,7 @@ export class PeepShow extends Command {
       var listDeals = nectuneData.deals.map(function(i: { content: any; tagline: any; id: { toString: () => any; }; link: any; tag_one: any; tag_two: any; tag_three: any; company: any; emoji: any; }) {
         return{
           content: i.content,
-          tagline: i.tagline,
+          tagline: i.tagline.substring(0, 60),
           company: i.company,
           emoji: i.emoji,
           id: i.id.toString(),
@@ -117,18 +117,31 @@ export class PeepShow extends Command {
         return parseInt(findTitle.value); 
       }
 
+      //RETURN NOTIFICATION
+      console.log(chalk.bold.red(customText( "notification")));
+
       //RETURN HEADER
       console.log(customContent( "header"));
+
+      //INDEX COMMANDS
+      console.log(
+        '\n\ '+ customText( "ch_deco_one") + '  ' +
+        chalk.bold(customText( "arg_txt_one")) + ' ' + chalk.bold.bgBlack(customText( "arg_code_one")) 
+        + '  ' +customText( "ch_deco_two") + '  ' +
+        chalk.bold(customText( "arg_txt_two")) + ' ' +  chalk.bold.bgBlack(customText( "arg_code_two"))
+        + '  ' + customText( "ch_deco_one")  +
+         '\n\n\n'
+        )
 
       //LOOP RECORD
       var data = []
         
         for (let i = 0 ; i < listDeals.length ; i++) {
           data.push({
-            tagline: emoji.get(listDeals[i].emoji) + "    " +  chalk.bold.bgBlack.whiteBright(listDeals[i].tagline),
-            tags: "tags: " + listDeals[i].tag_one + "  " + listDeals[i].tag_two + "  " + listDeals[i].tag_three,
+            tagline: emoji.get(listDeals[i].emoji) + "    " +  chalk.bold.magenta(listDeals[i].tagline),
+            tags: chalk.bold.bgBlack("TAGS:" ) + " " +  chalk.bold(listDeals[i].tag_one) + "  " + chalk.bold(listDeals[i].tag_two) + "  " + chalk.bold(listDeals[i].tag_three),
             company: listDeals[i].company,
-            id: "id: " + listDeals[i].id,
+            id: chalk.bold.bgBlack("ID:" ) + " " + chalk.bold(listDeals[i].id),
           })
           // CREATE A MARGIN BOTTOM WITH BLANK COLUMN
           data.push({

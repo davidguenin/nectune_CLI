@@ -1,5 +1,8 @@
 import Command from '@oclif/command'
 const fetch = require('node-fetch');
+const chalk = require('chalk');
+var columnify = require('columnify')
+var emoji = require('node-emoji')
 
 export class CocoBingo extends Command {
 
@@ -49,6 +52,52 @@ export class CocoBingo extends Command {
         } 
       });
 
+      var customValues = nectuneData.custom_values.map(function(i: { title: any; value: any; content: any; }) {
+        return{
+          title: i.title,
+          value: i.value,
+          content: i.content,
+        } 
+      });
+
+      var messages = nectuneData.messages.map(function(i: { name: any; content: any; }) {
+        return{
+          name: i.name,
+          content: i.content.substring(0, 125),
+        } 
+      });
+
+      //RETURN A CUSTOM VALUE STRING -> VALUE
+      function customText(title: string){
+        var findTitle = customValues.find((obj: { title: any; }) => {
+          return obj.title === title
+        })
+        return findTitle.value; 
+      }
+
+      //RETURN A CUSTOM VALUE CONTENT
+      function customContent(title: string){
+        var findTitle = customValues.find((obj: { title: any; }) => {
+          return obj.title === title
+        })
+        return findTitle.content; 
+      }
+
+      //RETURN A CUSTOM VALUE NUMBER -> VALUE
+      function customNumber(title: string){
+        var findTitle = customValues.find((obj: { title: any; }) => {
+          return obj.title === title
+        })
+        return parseInt(findTitle.value); 
+      }
+
+      //RETURN NOTIFICATION
+      console.log(chalk.bold.red(customText( "notification")));
+
+      //RETURN HEADER
+      console.log(chalk.yellow.bold(customContent( "header")));
+      console.log(chalk.green.bold(customContent( "header_two")));
+
       if (args.edition == "all" || !isNaN(args.edition)){
         //LOOP RECORD
         for (let i = 0 ; i < listCards.length ; i++) {
@@ -60,7 +109,41 @@ export class CocoBingo extends Command {
       else{
         //LAST LIVE ITEM
         var last = listCards[0].content
-        console.log(last)
+        console.log(last + "\n")
+
+        console.log(chalk.bold.bgBlack(customContent( "link_text")) + "\n")
+
+        //LOOP MESSAGES
+        var data = []
+          
+        for (let i = 0 ; i < messages.length ; i++) {
+          data.push({
+            name: emoji.get(customText( "emoji_message")) + '   ' + chalk.bold(messages[i].name),
+            content: messages[i].content,
+          })
+          // CREATE A MARGIN BOTTOM WITH BLANK COLUMN
+          data.push({
+            name: "",
+            content: "",
+          })
+        }
+
+        var columns = columnify(
+          data,{
+          showHeaders: false,
+          config:{
+            content:{
+              minWidth: customNumber( "min_width_content"),
+            },
+            name:{
+              minWidth: customNumber( "min_width_name"),
+              maxWidth: customNumber( "max_width_name")
+            }
+          }
+        })
+      
+        console.log(columns)
+
       }
       
     }

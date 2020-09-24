@@ -1,5 +1,6 @@
 import Command from '@oclif/command'
 const fetch = require('node-fetch');
+const chalk = require('chalk');
 
 export class YoWorld extends Command {
 
@@ -49,6 +50,44 @@ export class YoWorld extends Command {
         } 
       });
 
+      var customValues = nectuneData.custom_values.map(function(i: { title: any; value: any; content: any; }) {
+        return{
+          title: i.title,
+          value: i.value,
+          content: i.content,
+        } 
+      });
+
+      //RETURN A CUSTOM VALUE STRING -> VALUE
+      function customText(title: string){
+        var findTitle = customValues.find((obj: { title: any; }) => {
+          return obj.title === title
+        })
+        return findTitle.value; 
+      }
+
+      //RETURN A CUSTOM VALUE CONTENT
+      function customContent(title: string){
+        var findTitle = customValues.find((obj: { title: any; }) => {
+          return obj.title === title
+        })
+        return findTitle.content; 
+      }
+
+      //RETURN A CUSTOM VALUE NUMBER -> VALUE
+      function customNumber(title: string){
+        var findTitle = customValues.find((obj: { title: any; }) => {
+          return obj.title === title
+        })
+        return parseInt(findTitle.value); 
+      }
+
+      //RETURN NOTIFICATION
+      console.log(chalk.bold.red(customText( "notification")));
+
+      //RETURN HEADER
+      console.log(customContent( "header"));
+
       if (args.edition == "all" || !isNaN(args.edition)){
         //LOOP RECORD
         for (let i = 0 ; i < listCards.length ; i++) {
@@ -62,6 +101,9 @@ export class YoWorld extends Command {
         var last = listCards[0].content
         console.log(last)
       }
+
+      //RETURN FOOTER
+      console.log(customContent( "footer"));
       
     }
               
