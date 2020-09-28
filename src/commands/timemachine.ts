@@ -86,12 +86,14 @@ export default class Timemachine extends Command {
           
       for (let i = 0 ; i < listLives.length ; i++) {
         data.push({
-          edition: listLives[i].edition,
+          blank: "",
+          edition: 'Edition => ' + listLives[i].edition,
           title: listLives[i].tagline,
           date: listLives[i].date,
         })
         // CREATE A MARGIN BOTTOM WITH BLANK COLUMN
         data.push({
+          blank: "",
           edition: "",
           title: "",
           date: "",
@@ -100,7 +102,11 @@ export default class Timemachine extends Command {
 
       var columns = columnify(
         data,{
+          showHeaders: false,
           config:{
+            blank:{
+              minWidth: customNumber( "min_width_blank"),
+            },
             edition:{
               minWidth: customNumber( "min_width_edition"),
             },

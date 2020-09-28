@@ -1,6 +1,6 @@
 {
   "name": "nectune",
-  "description": "Lifestyle media for developers",
+  "description": "Nectune push entertainment directly on your Terminal",
   "version": "0.0.0",
   "author": "David Guenin @davdevdesign",
   "bin": {

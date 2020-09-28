@@ -38,7 +38,7 @@ export class YoWorld extends Command {
     
     // RETURN LOGS
     if (nectuneData == null){
-      console.log('Try another argument :)')
+      console.log('Try another command :-)')
     }
     
     else{
@@ -85,8 +85,14 @@ export class YoWorld extends Command {
       //RETURN NOTIFICATION
       console.log(chalk.bold.red(customText( "notification")));
 
+      //DEFINE DATE OF THE DAY
+      var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      var today  = new Date();
+      var dateToday = today.toLocaleDateString("en-US", options)
+
       //RETURN HEADER
       console.log(customContent( "header"));
+      console.log((customContent( "header_mention_left") + dateToday + customContent( "header_mention_right")).toUpperCase() + '\n\n')
 
       if (args.edition == "all" || !isNaN(args.edition)){
         //LOOP RECORD
@@ -103,7 +109,7 @@ export class YoWorld extends Command {
       }
 
       //RETURN FOOTER
-      console.log(customContent( "footer"));
+      console.log('\n\n' + customContent( "footer")+ '\n\n');
       
     }
               

@@ -40,7 +40,7 @@ export class CocoBingo extends Command {
     
     // RETURN LOGS
     if (nectuneData == null){
-      console.log('Try another argument :)')
+      console.log('Try another command :-)')
     }
     
     else{
@@ -57,13 +57,6 @@ export class CocoBingo extends Command {
           title: i.title,
           value: i.value,
           content: i.content,
-        } 
-      });
-
-      var messages = nectuneData.messages.map(function(i: { name: any; content: any; }) {
-        return{
-          name: i.name,
-          content: i.content.substring(0, 125),
         } 
       });
 
@@ -107,6 +100,15 @@ export class CocoBingo extends Command {
       }
       
       else{
+
+        // MAP MESSAGES
+        var messages = nectuneData.messages.map(function(i: { name: any; content: any; }) {
+          return{
+            name: i.name,
+            content: i.content.substring(0, 125),
+          } 
+        });
+
         //LAST LIVE ITEM
         var last = listCards[0].content
         console.log(last + "\n")

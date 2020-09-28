@@ -14,8 +14,8 @@ Our mission is to bring you original content every day.
 **Technically Nectune is a simple CLI which allows you to connect to our API and ensure the layout of the content.**
 The commands allow you to navigate in the different categories like a menu on a website
 
-We use the Oclif framework to build our CLI and the Blessed library for the layout.
-**All content and illustrations are created from scratch in ascii**
+We use the Oclif framework to build our CLI.
+**All content and illustrations are created from scratch**
 
 Nectune is a young project, we are open for all your feedback. Visit our site to contact us.
 <pre>*   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *</pre>
@@ -60,11 +60,29 @@ COMMANDS
 
 yoworld      ======>      NON STOP CONTENT
 
-peepshow     ======>      HOT DEALS +18 
+Get all the posts:
+Curent month  ----  $ nectune yoworld all
+Past months ----  $ nectune yoworld [EDITION_ID]
+
+*     *     *     *     *     *     *
 
 cocobingo    ======>      PLAY WIN $$$
 
-timemachine  ======>      FIND OLD CONTENT
+Curent month  ----  $ nectune cocobingo all
+Past months ----  $ nectune cocobingo [EDITION_ID] 
+
+*     *     *     *     *     *     *
+
+peepshow     ======>      HOT DEALS +18
+
+Search deals (max 3 TAGS)   ----  $ nectune yoworld [TAGS]    
+Read a single deal        ----  $ nectune yoworld [DEAL_ID] 
+
+
+*     *     *     *     *     *     *
+
+
+timemachine  ======>      FIND OLD CONTENT = [EDITION_ID]
 
 
 EXAMPLE
