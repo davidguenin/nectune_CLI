@@ -29,64 +29,65 @@ Nectune is a young project, we are open for all your feedback. Visit our site to
 
 # Install Nectune
 
-**Mac OS via Brew**
-```
-Command
-```
-
-**Ubuntu & Linux via Snap**
-```
-Command
-```
-
-**Windows ==> Direct download**
-```
-Command
-```
-
 **NPM**
+
+Install the CLI by running:
 ```
-Command
+ npm i nectune
 ```
+
+Update by running:
+```
+npm update -g nectune
+```
+
+**Mac and Windows**
+
+Direct download:
+https://www.nectune.com/#install-cli
+
+
+
 
 # Using Nectune
 
+
+**USAGE**
 ```
-USAGE
 $ nectune [COMMAND]
+```
 
+**COMMANDS**
 
-COMMANDS
-
-yoworld      ======>      NON STOP CONTENT
+```yoworld ```     ======>      NON STOP CONTENT
 
 Get all the posts:
-Curent month  ----  $ nectune yoworld all
-Past months ----  $ nectune yoworld [EDITION_ID]
+Curent month  ----  ```$ nectune yoworld all```
+Past months ----  ```$ nectune yoworld [EDITION_ID]```
 
 *     *     *     *     *     *     *
 
-cocobingo    ======>      PLAY WIN $$$
+```cocobingo```   ======>      PLAY WIN $$$
 
-Curent month  ----  $ nectune cocobingo all
-Past months ----  $ nectune cocobingo [EDITION_ID] 
+Curent month  ----  ```$ nectune cocobingo all```
+Past months ----  ```$ nectune cocobingo [EDITION_ID] ```
 
 *     *     *     *     *     *     *
 
-peepshow     ======>      HOT DEALS +18
+```peepshow```     ======>      HOT DEALS +18
 
-Search deals (max 3 TAGS)   ----  $ nectune yoworld [TAGS]    
+Search deals (max 3 TAGS)   ----  ```$ nectune yoworld [TAGS]```    
 Read a single deal        ----  $ nectune yoworld [DEAL_ID] 
 
 
 *     *     *     *     *     *     *
 
 
-timemachine  ======>      FIND OLD CONTENT = [EDITION_ID]
+```timemachine```  ======>      FIND OLD CONTENT = [EDITION_ID]
 
 
 EXAMPLE
-$ nectune yoworld
+```$ nectune yoworld```
 running command yoworld...
 
-```
+

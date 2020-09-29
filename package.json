@@ -14,7 +14,6 @@
     "chalk": "^4.1.0",
     "chalk-animation": "^1.6.0",
     "columnify": "^1.5.4",
-    "dotenv": "^8.2.0",
     "node-emoji": "^1.10.0",
     "node-fetch": "^2.6.1",
     "tslib": "^2.0.1"
