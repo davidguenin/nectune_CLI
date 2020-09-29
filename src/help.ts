@@ -34,7 +34,7 @@ export default class MyHelpClass extends Help {
                                                                                                                                              
                                                                                                                                              
                                                                                                                             *                
-                   *                    yoworld      ======>      NON STOP CONTENT                                                           
+                   *                    $ nectune yoworld  ===>  NON STOP CONTENT                                                           
                                                                                                                                        *     
                                         Get all the posts:                                                                                   
                                         Curent month  ----  $ nectune yoworld all                                                            
@@ -43,7 +43,7 @@ export default class MyHelpClass extends Help {
                                                                                                                                              
                                                                                                                                              
                                                                                                                                              
-                                        cocobingo    ======>     PLAY WIN $$$                                                                
+                                        $ nectune cocobingo  ===>  PLAY WIN $$$                                                                
                                                                                                                                              
                                         Get all the posts:                                                                                   
                                         Curent month  ----  $ nectune cocobingo all                                                          
@@ -52,15 +52,15 @@ export default class MyHelpClass extends Help {
                                                                                                                              *               
                     *                                                                                                                        
                                                                                                                                              
-                                        peepshow     ======>      HOT DEALS +18CONTENT                                                       
+                                        $ nectune peepshow  ===>  HOT DEALS +18CONTENT                                                       
                                                                                                                                              
-   *                                    Search deals (max 3 TAGS)   ----  $ nectune yoworld [TAGS]                                           
-                                        Read a single deal        ----  $ nectune yoworld [DEAL_ID]                                          
+   *                                    Search deals (max 3 TAGS)   ----  $ nectune peepshow [TAGS]                                           
+                                        Read a single deal        ----  $ nectune peepshow [DEAL_ID]                                          
                                                                                                                                              
                                                                                                                                              
                                                                                                                                            * 
                                                                                                                        *                     
-                      *                 timemachine  ======>      FIND OLD CONTENT = [EDITION_ID]                                            
+                      *                 $ nectune timemachine  ===>  FIND OLD CONTENT = [EDITION_ID]                                            
                                                                                                                                              
                                                                                                                                              
                                                                                                                                              

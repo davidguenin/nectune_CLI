@@ -47,8 +47,6 @@ Direct download:
 https://www.nectune.com/#install-cli
 
 
-
-
 # Using Nectune
 
 
@@ -59,35 +57,61 @@ $ nectune [COMMAND]
 
 **COMMANDS**
 
-```yoworld ```     ======>      NON STOP CONTENT
+The termzine
+```
+$ nectune yoworld
+```    
 
-Get all the posts:
-Curent month  ----  ```$ nectune yoworld all```
-Past months ----  ```$ nectune yoworld [EDITION_ID]```
+Get all the articles of the current month:
 
-*     *     *     *     *     *     *
+```
+$ nectune yoworld all
+```
 
-```cocobingo```   ======>      PLAY WIN $$$
-
-Curent month  ----  ```$ nectune cocobingo all```
-Past months ----  ```$ nectune cocobingo [EDITION_ID] ```
-
-*     *     *     *     *     *     *
-
-```peepshow```     ======>      HOT DEALS +18
-
-Search deals (max 3 TAGS)   ----  ```$ nectune yoworld [TAGS]```    
-Read a single deal        ----  $ nectune yoworld [DEAL_ID] 
-
+Get all the articles of the past months:
+```
+$ nectune yoworld [EDITION_ID]
+```
 
 *     *     *     *     *     *     *
 
+The games
+```
+$ nectune cocobingo
+```  
+Get all the games of the current month:
+```
+$ nectune cocobingo all
+```
 
-```timemachine```  ======>      FIND OLD CONTENT = [EDITION_ID]
+Get all the games of the past months:
+```
+$ nectune cocobingo [EDITION_ID] 
+```
 
+*     *     *     *     *     *     *
 
-EXAMPLE
-```$ nectune yoworld```
-running command yoworld...
+The deals
+
+```
+$ nectune peepshow
+```   
+Search deals (maximum 3 TAGS):  
+```
+$ nectune peepshow [TAGS]
+```    
+Read a single deal:
+```
+ $ nectune peepshow [DEAL_ID] 
+```
+
+*     *     *     *     *     *     *
+
+Find old content [EDITION_ID]:
+
+```
+$ nectune timemachine
+```
+
 
 
