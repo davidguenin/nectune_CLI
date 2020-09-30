@@ -2,8 +2,6 @@ import Command from '@oclif/command'
 const fetch = require('node-fetch');
 const chalk = require('chalk');
 var columnify = require('columnify')
-const chalkAnimation = require('chalk-animation');
-
 
 export default class Timemachine extends Command {
 
@@ -86,14 +84,14 @@ export default class Timemachine extends Command {
           
       for (let i = 0 ; i < listLives.length ; i++) {
         data.push({
-          blank: "",
+          left: "",
           edition: 'Edition => ' + listLives[i].edition,
           title: listLives[i].tagline,
           date: listLives[i].date,
         })
         // CREATE A MARGIN BOTTOM WITH BLANK COLUMN
         data.push({
-          blank: "",
+          left: "",
           edition: "",
           title: "",
           date: "",
@@ -104,8 +102,8 @@ export default class Timemachine extends Command {
         data,{
           showHeaders: false,
           config:{
-            blank:{
-              minWidth: customNumber( "min_width_blank"),
+            left:{
+              minWidth: customNumber( "min_width_left"),
             },
             edition:{
               minWidth: customNumber( "min_width_edition"),
@@ -123,13 +121,6 @@ export default class Timemachine extends Command {
     
       console.log(columns)
 
-      //ANIMATION
-      const glitch = chalkAnimation.glitch(customContent( "animation"));
-      setTimeout(() => {
-        glitch.stop(); // Animation stops
-      }, customNumber( "animation_stop"));
-
     }
-
   }
 }

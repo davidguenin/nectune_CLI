@@ -2,7 +2,6 @@ import Command from '@oclif/command'
 const fetch = require('node-fetch');
 var columnify = require('columnify')
 const chalk = require('chalk');
-const chalkAnimation = require('chalk-animation');
 var emoji = require('node-emoji')
 
 export class PeepShow extends Command {
@@ -98,8 +97,6 @@ export class PeepShow extends Command {
       //RETURN NOTIFICATION
       console.log(chalk.bold.red(customText( "notification")));
 
-
-
         
       //RETURN SINGLE DEAL
       if (args.tag_one && !isNaN(args.tag_one) ) {
@@ -123,12 +120,11 @@ export class PeepShow extends Command {
 
         //INDEX COMMANDS
         console.log(
-          '\n\n'+ '                       ' +
-          chalk.bold(customText( "arg_txt_one").toUpperCase()) + ' ' + chalk.bold.bgBlack(customText( "arg_code_one")) 
-          + '  ' +customText( "ch_deco_two") + '  ' +
-          chalk.bold(customText( "arg_txt_two").toUpperCase()) + ' ' +  chalk.bold.bgBlack(customText( "arg_code_two"))
+          '\n' +
+          chalk.magenta(customText( "arg_txt_one")) + ' ' + chalk.bgBlack(customText( "arg_code_one")) +
+          chalk.magenta(customText( "arg_txt_two")) + ' ' +  chalk.bgBlack(customText( "arg_code_two"))
           + 
-          '\n\n\n'
+          '\n\n'
           )
 
         //MAP RECORDS
@@ -150,13 +146,15 @@ export class PeepShow extends Command {
           
           for (let i = 0 ; i < listDeals.length ; i++) {
             data.push({
-              tagline: emoji.get(listDeals[i].emoji) + "    " +  chalk.bold.magenta(listDeals[i].tagline),
-              tags: chalk.bold.bgBlack("TAGS:" ) + " " +  chalk.bold(listDeals[i].tag_one) + "  " + chalk.bold(listDeals[i].tag_two) + "  " + chalk.bold(listDeals[i].tag_three),
+              left:"",
+              tagline: emoji.get(listDeals[i].emoji) + "    " +  chalk.bold(listDeals[i].tagline),
+              tags: chalk.bold.bgBlack("TAGS:" ) + " " +  chalk.underline(listDeals[i].tag_one) + "  " + chalk.underline(listDeals[i].tag_two) + "  " + chalk.underline(listDeals[i].tag_three),
               company: listDeals[i].company,
-              id: chalk.bold.bgBlack("ID:" ) + " " + chalk.bold(listDeals[i].id),
+              id: chalk.bold.bgBlack("ID:" ) + " " + listDeals[i].id,
             })
             // CREATE A MARGIN BOTTOM WITH BLANK COLUMN
             data.push({
+              left:"",
               tagline: "",
               tags: "",
               id: ""
@@ -174,16 +172,13 @@ export class PeepShow extends Command {
             tags:{
               minWidth: customNumber( "min_width_tags"),
             },
+            left:{
+              minWidth: customNumber( "min_width_left"),
+            }
           }
         })
       
         console.log(columns)
-
-        //ANIMATION
-        const rainbow = chalkAnimation.neon(customContent( "animation"));
-        setTimeout(() => {
-            rainbow.stop(); // Animation stops
-        }, customNumber( "animation_stop"));
 
       }
     }             

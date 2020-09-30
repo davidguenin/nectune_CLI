@@ -92,7 +92,7 @@ export class YoWorld extends Command {
 
       //RETURN HEADER
       console.log(customContent( "header"));
-      console.log((customContent( "header_mention_left") + dateToday + customContent( "header_mention_right")).toUpperCase() + '\n\n')
+      console.log((customContent( "header_mention_left") + chalk.bold(dateToday) + customContent( "header_mention_right")) + '\n')
 
       if (args.edition == "all" || !isNaN(args.edition)){
         //LOOP RECORD
@@ -107,9 +107,6 @@ export class YoWorld extends Command {
         var last = listCards[0].content
         console.log(last)
       }
-
-      //RETURN FOOTER
-      console.log('\n\n' + customContent( "footer")+ '\n\n');
       
     }
               

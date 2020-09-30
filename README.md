@@ -7,7 +7,7 @@
 ░▓▓ ░▓▓▓ ░▓▓▓▓▓▓▓  ░▓▓▓▓▓▓▓   ░▓▓   ░▓▓▓▓▓▓▓ ░▓▓ ░▓▓▓ ░▓▓▓▓▓▓▓
 </pre>
 
-<pre>*   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *</pre>
+
 **Nectune push entertainment directly on your terminal: media, games, deals and much more!** 
 Our mission is to bring you original content every day.
 
@@ -18,7 +18,6 @@ We use the Oclif framework to build our CLI.
 **All content and illustrations are created from scratch**
 
 Nectune is a young project, we are open for all your feedback. Visit our site to contact us.
-<pre>*   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *   *</pre>
 
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
@@ -57,7 +56,7 @@ $ nectune [COMMAND]
 
 **COMMANDS**
 
-The termzine
+<strong>The termzine</strong>
 ```
 $ nectune yoworld
 ```    
@@ -73,9 +72,9 @@ Get all the articles of the past months:
 $ nectune yoworld [EDITION_ID]
 ```
 
-*     *     *     *     *     *     *
+---
 
-The games
+<strong>The games</strong>
 ```
 $ nectune cocobingo
 ```  
@@ -89,9 +88,9 @@ Get all the games of the past months:
 $ nectune cocobingo [EDITION_ID] 
 ```
 
-*     *     *     *     *     *     *
+---
 
-The deals
+<strong>The deals</strong>
 
 ```
 $ nectune peepshow
@@ -105,13 +104,10 @@ Read a single deal:
  $ nectune peepshow [DEAL_ID] 
 ```
 
-*     *     *     *     *     *     *
+---
 
-Find old content [EDITION_ID]:
+<strong>Find old content </strong>[EDITION_ID]:
 
 ```
 $ nectune timemachine
 ```
-
-
-

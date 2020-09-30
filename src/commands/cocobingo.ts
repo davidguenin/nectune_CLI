@@ -120,6 +120,7 @@ export class CocoBingo extends Command {
           
         for (let i = 0 ; i < messages.length ; i++) {
           data.push({
+            left:"",
             name: emoji.get(customText( "emoji_message")) + '   ' + chalk.bold(messages[i].name),
             content: messages[i].content,
           })
@@ -140,6 +141,9 @@ export class CocoBingo extends Command {
             name:{
               minWidth: customNumber( "min_width_name"),
               maxWidth: customNumber( "max_width_name")
+            },
+            left:{
+              minWidth: customNumber( "min_width_left"),
             }
           }
         })
@@ -148,7 +152,6 @@ export class CocoBingo extends Command {
 
       }
       
-    }
-              
+    }         
   }
 }
