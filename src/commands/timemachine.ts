@@ -1,5 +1,5 @@
 import Command from '@oclif/command'
-const fetch = require('node-fetch');
+const axios = require('axios');
 const chalk = require('chalk');
 var columnify = require('columnify')
 
@@ -7,22 +7,19 @@ export default class Timemachine extends Command {
 
   async run() {
 
-    //FETCH DATA NECTUNE API
-    async function logFetch(url: string) {
+    //GET DATA NECTUNE API
+    async function getData(url: string) {
       try {
-        const response = await fetch(url);
-        if (response.ok) {
-          return response.json();
-        } else {
-          console.log('Ouuups no content here...');
-        }
-      }
-      catch (err) {
-        console.log('fetch failed', err);
+        const response = await axios.get(url);
+        if (response.status === 200) {
+          return response.data;
+        } 
+      } catch (error) {
+        console.log('Ouuups no content here...');
       }
     }
 
-    var nectuneData = await logFetch('https://www.nectune.com/timemachine.json');
+    var nectuneData = await getData('https://www.nectune.com/timemachine.json');
 
     // RETURN LOGS
     if (nectuneData == null){
@@ -30,7 +27,6 @@ export default class Timemachine extends Command {
     }
 
     else{
-
       //MAP RECORD
       var listLives = nectuneData.list.map(function(i: { tagline: any; edition: any; date: any; }) {
         return{
@@ -78,10 +74,8 @@ export default class Timemachine extends Command {
       //RETURN HEADER
       console.log(customContent( "header"));
       
-
       //LOOP MESSAGES
       var data = []
-          
       for (let i = 0 ; i < listLives.length ; i++) {
         data.push({
           left: "",
@@ -115,8 +109,7 @@ export default class Timemachine extends Command {
               minWidth: customNumber( "min_width_date"),
             }
           }
-        },
-        
+        },       
       )
     
       console.log(columns)

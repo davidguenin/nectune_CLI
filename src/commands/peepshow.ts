@@ -1,5 +1,5 @@
 import Command from '@oclif/command'
-const fetch = require('node-fetch');
+const axios = require('axios');
 var columnify = require('columnify')
 const chalk = require('chalk');
 var emoji = require('node-emoji')
@@ -15,18 +15,15 @@ export class PeepShow extends Command {
 
   async run() {
 
-    //FETCH DATA NECTUNE API
-    async function logFetch(url: string) {
+    //GET DATA NECTUNE API
+    async function getData(url: string) {
       try {
-        const response = await fetch(url);
-        if (response.ok) {
-          return response.json();
-        } else {
-          console.log('Ouuups no content here...');
-        }
-      }
-      catch (err) {
-        console.log('fetch failed', err);
+        const response = await axios.get(url);
+        if (response.status === 200) {
+          return response.data;
+        } 
+      } catch (error) {
+        console.log('Ouuups no content here...');
       }
     }
 
@@ -38,19 +35,19 @@ export class PeepShow extends Command {
     const {args} = this.parse(PeepShow)    
 
     if (args.tag_one && !isNaN(args.tag_one) ) {
-       var nectuneData = await logFetch('https://www.nectune.com/deals/' + args.tag_one  +'.json');
+       var nectuneData = await getData('https://www.nectune.com/deals/' + args.tag_one  +'.json');
     }
     else if (args.tag_one && !args.tag_two && !args.tag_three) {
-      var nectuneData = await logFetch('https://www.nectune.com/deals.json/?tag_one='+ capitalizeFirstLetter(args.tag_one));
+      var nectuneData = await getData('https://www.nectune.com/deals.json/?tag_one='+ capitalizeFirstLetter(args.tag_one));
     }
     else if (args.tag_one && args.tag_two && !args.tag_three) {
-      var nectuneData = await logFetch('https://www.nectune.com/deals.json/?tag_one='+ capitalizeFirstLetter(args.tag_one) +'&tag_two='+ capitalizeFirstLetter(args.tag_two));
+      var nectuneData = await getData('https://www.nectune.com/deals.json/?tag_one='+ capitalizeFirstLetter(args.tag_one) +'&tag_two='+ capitalizeFirstLetter(args.tag_two));
     }
     else if (args.tag_one && args.tag_two && args.tag_three) {
-      var nectuneData = await logFetch('https://www.nectune.com/deals.json/?tag_one='+ capitalizeFirstLetter(args.tag_one) +'&tag_two='+ capitalizeFirstLetter(args.tag_two) +'&tag_three='+ capitalizeFirstLetter(args.tag_three));
+      var nectuneData = await getData('https://www.nectune.com/deals.json/?tag_one='+ capitalizeFirstLetter(args.tag_one) +'&tag_two='+ capitalizeFirstLetter(args.tag_two) +'&tag_three='+ capitalizeFirstLetter(args.tag_three));
     }
     else{
-      var nectuneData = await logFetch('https://www.nectune.com/deals.json');
+      var nectuneData = await getData('https://www.nectune.com/deals.json');
     }
     
 
@@ -96,24 +93,22 @@ export class PeepShow extends Command {
 
       //RETURN NOTIFICATION
       console.log(chalk.bold.red(customText( "notification")));
-
         
       //RETURN SINGLE DEAL
       if (args.tag_one && !isNaN(args.tag_one) ) {
 
-      //RETURN HEADER
-      console.log(customContent( "header_single"));
+        //RETURN HEADER
+        console.log(customContent( "header_single"));
 
-        console.log( "\n\n" + emoji.get(nectuneData.emoji) + "    " +  chalk.bold.bgBlack.whiteBright(nectuneData.tagline) + "   //   " + nectuneData.company + "\n\n")
+        console.log( "   " + emoji.get(nectuneData.emoji) + "    " +  chalk.bold.bgBlack.whiteBright(nectuneData.tagline) + "   -   " + nectuneData.company + "\n\n")
         var contentBreak = nectuneData.content.match(/\b[\w']+(?:[^\w]+[\w']+){0,20}\b/g).join('\n');
+        var contentBreak = contentBreak.replace(/^/gm, "   ");
         console.log(contentBreak + "\n\n\n" )
-        console.log("Link:\n" + nectuneData.link + "\n\n\n")
-        console.log(nectuneData.tag_one + "    " + nectuneData.tag_two + "    " + nectuneData.tag_three + "\n\n")
+        console.log("   " + "Link:\n" + "   "+ nectuneData.link + "\n")
       }
       
       //LOOP RECORD
       else{
-
 
         //RETURN HEADER
         console.log(customContent( "header"));
@@ -121,8 +116,8 @@ export class PeepShow extends Command {
         //INDEX COMMANDS
         console.log(
           '\n' +
-          chalk.magenta(customText( "arg_txt_one")) + ' ' + chalk.bgBlack(customText( "arg_code_one")) +
-          chalk.magenta(customText( "arg_txt_two")) + ' ' +  chalk.bgBlack(customText( "arg_code_two"))
+          chalk.magenta(customText( "arg_txt_one").toUpperCase()) + ' ' + chalk.bgBlack(customText( "arg_code_one")) +
+          chalk.magenta(customText( "arg_txt_two").toUpperCase()) + ' ' +  chalk.bgBlack(customText( "arg_code_two"))
           + 
           '\n\n'
           )
@@ -166,14 +161,24 @@ export class PeepShow extends Command {
           showHeaders: false,
           minWidth: customNumber( "min_width"),
           config:{
+            left:{
+              minWidth: customNumber( "min_width_left"),
+            },
             tagline:{
               minWidth: customNumber( "min_width_tagline"),
+              maxWidth: customNumber( "max_width_tagline"),
             },
             tags:{
               minWidth: customNumber( "min_width_tags"),
+              maxWidth: customNumber( "max_width_tags"),
             },
-            left:{
-              minWidth: customNumber( "min_width_left"),
+            company:{
+              minWidth: customNumber( "min_width_company"),
+              maxWidth: customNumber( "max_width_company"),
+            },
+            id:{
+              minWidth: customNumber( "min_width_id"),
+              maxWidth: customNumber( "max_width_id"),
             }
           }
         })

@@ -8,14 +8,14 @@
 </pre>
 
 
-**Nectune push entertainment directly on your terminal: media, games, deals and much more!** 
+**Nectune pushes entertainment directly on your terminal: media, games, deals and much more!** 
 Our mission is to bring you original content every day.
 
 **Technically Nectune is a simple CLI which allows you to connect to our API and ensure the layout of the content.**
-The commands allow you to navigate in the different categories like a menu on a website
+The commands enable navigation in the different categories like a menu on a website.
 
 We use the Oclif framework to build our CLI.
-**All content and illustrations are created from scratch**
+**All content and illustrations are created from scratch.**
 
 Nectune is a young project, we are open for all your feedback. Visit our site to contact us.
 
@@ -37,7 +37,7 @@ Install the CLI by running:
 
 Update by running:
 ```
-npm update -g nectune
+npm install nectune@latest
 ```
 
 **Mac and Windows**
