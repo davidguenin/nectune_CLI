@@ -3,6 +3,7 @@ const axios = require('axios');
 const chalk = require('chalk');
 var columnify = require('columnify')
 var emoji = require('node-emoji')
+import cli from 'cli-ux'
 
 export class CocoBingo extends Command {
 
@@ -42,13 +43,7 @@ export class CocoBingo extends Command {
     
     else{
 
-      //MAP RECORD
-      var listCards = nectuneData.cards.map(function(i: { content: any; }) {
-        return{
-          content: i.content
-        } 
-      });
-
+      //CUSTOM VALUES
       var customValues = nectuneData.custom_values.map(function(i: { title: any; value: any; content: any; }) {
         return{
           title: i.title,
@@ -94,77 +89,123 @@ export class CocoBingo extends Command {
       
       else{
 
-         //LAST LIVE ITEM
-         var last = listCards[0].content
-         console.log(last + "\n")
-         console.log( chalk.green(customText( "link_text_ba_left")) +  chalk.bold.yellow(customContent( "link_text"))+ chalk.green(customText( "link_text_ba_right"))  + "\n")
+        //LAST LIVE ITEM
+        var listCards = nectuneData.cards.map(function(i: { content: any; }) {
+          return{
+            content: i.content
+          } 
+        });
 
-        //GET MESSAGES
-         async function logEvery2Seconds(i: number) {
-          setTimeout(async () => {
-            var messagesData = await getData('https://www.nectune.com/messages.json');
+        var last = listCards[0].content
+        console.log(last + "\n")
+        console.log( chalk.green(customText( "link_text_ba_left")) +  chalk.bold.yellow(customContent( "link_text"))+ chalk.green(customText( "link_text_ba_right"))  + "\n")
+
+        //LOOP MESSAGES
+        function returnMessages(dataName: any){
+          var columns = columnify(
+            dataName,{
+            showHeaders: false,
+            config:{
+              content:{
+                minWidth: customNumber( "min_width_content"),
+                maxWidth: customNumber( "max_width_content"),
+              },
+              name:{
+                minWidth: customNumber( "min_width_name"),
+                maxWidth: customNumber( "max_width_name")
+              },
+              left:{
+                minWidth: customNumber( "min_width_left"),
+              }
+            }
+          })
+          console.log(columns)
+        }
+
+        var messages = nectuneData.messages.slice(0, customNumber( "number_messages")).map(function(i: { name: any; content: any; created_at: any;  tag: any;}) {
+          return{
+            name: i.name.substring(0, 20),
+            content: i.content.substring(0, 200),
+            date: i.created_at,
+            tag: i.tag
+          } 
+        });
+
+        var data = []           
+        for (let i = 0 ; i < messages.length; i++) {
+          data.push({
+            left:"",
+            name: emoji.get(customText( "emoji_message")) + '   ' + chalk.bold(messages[i].name),
+            content: messages[i].content,
+          })
+          // CREATE A MARGIN BOTTOM WITH BLANK COLUMN
+          data.push({
+            name: "",
+            content: "",
+          })
+        }      
+        
+        returnMessages(data)
+
+        //LOAD MORE MESSAGES
+        for (let i = 0 ; i < 100; i++) {
+
+          //LAST DATE CHECK
+          var dateNew = new Date().toString()
+          var dateNewParse = Date.parse(dateNew)
+
+          // IF PROMPT LAUNCH REQUEST
+          var loadMore =  await cli.anykey(customContent( "keypress_load_messages"))
+          if(loadMore !== undefined){
+            var messagesData = await getData('https://www.nectune.com/messages.json?tag=cocobingo');
             var messages = messagesData.messages.map(function(i: { name: any; content: any; created_at: any;  tag: any;}) {
               return{
                 name: i.name.substring(0, 20),
-                content: i.content.substring(0, 220),
+                content: i.content.substring(0, 200),
                 date: i.created_at,
                 tag: i.tag
               } 
             });
 
-            //LOOP MESSAGES
-            var data = []           
-            for (let i = 0 ; i < messages.length ; i++) {
-              //GET ONLY MESSAGES THAT HAVE LESS THAN X MINUTES
-              var dateMessage = Date.parse(messages[i].date)
-              var dateNow = new Date().toString()
-              var dateLessMinutes = Date.parse(dateNow)
-              dateLessMinutes = dateLessMinutes - (customNumber( "minutes_load_msg") * 60 * 1000)
-
-              if (dateMessage > dateLessMinutes && messages[i].tag == "cocobingo_tchat"){
-                data.push({
-                  left:"",
-                  name: emoji.get(customText( "emoji_message")) + '   ' + chalk.bold(messages[i].name),
-                  content: messages[i].content,
-                })
-                // CREATE A MARGIN BOTTOM WITH BLANK COLUMN
-                data.push({
-                  name: "",
-                  content: "",
-                })
-              }      
+            //STORE DATE MESSAGES
+            var msg = []
+            for (let i = 0 ; i < messages.length; i++) {
+              var you = Date.parse(messages[i].date)
+              msg.push(you)
             }
 
-            //DISPLAY MESSAGES WITH COLUMNIFY
-            var columns = columnify(
-              data,{
-              showHeaders: false,
-              config:{
-                content:{
-                  minWidth: customNumber( "min_width_content"),
-                  maxWidth: customNumber( "max_width_content"),
-                },
-                name:{
-                  minWidth: customNumber( "min_width_name"),
-                  maxWidth: customNumber( "max_width_name")
-                },
-                left:{
-                  minWidth: customNumber( "min_width_left"),
-                }
-              }
+            // FILTER THE LAST NEVER READ => COMPARE DATES
+            var lastMessages = msg.filter(msg=> msg > dateNewParse)
+
+            //START RENDER
+            var dataMessages = []           
+            for (let i = 0 ; i < lastMessages.length; i++) {
+              // CREATE A MARGIN BOTTOM WITH BLANK COLUMN
+              dataMessages.push({
+              name: "",
+              content: "",
             })
-          
-            //CHECK BEFORE LOG TO NOT CREATE LINEBREAK
-            if (data.length > 0){
-              console.log(columns)
+              dataMessages.push({
+                left:"",
+                name: emoji.get(customText( "emoji_message")) + '   ' + chalk.bold(messages[i].name),
+                content: messages[i].content,
+              })
+   
             }
-            
-            logEvery2Seconds(++i);
-          }, customNumber( "time_refresh_msg"))
-        }
-      
-        logEvery2Seconds(0);
 
+            if (lastMessages.length > 0){
+              console.log('\n')
+              //REVERSE ARRAY TO HAVE THE LASTEST MESSAGE AT THE BOTTOM
+              const reversed = dataMessages.reverse();
+              returnMessages(dataMessages)
+              console.log('\n')
+            }
+            else{
+              console.log(customContent( "keypress_no_message"))
+            }
+                           
+          }
+        }
       }  
     }         
   }

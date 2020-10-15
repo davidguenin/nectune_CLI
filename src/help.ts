@@ -6,8 +6,12 @@ export default class MyHelpClass extends Help {
   public showHelp() {
 
     console.log(`
-                                       ░▓▓▓ ░▓▓ ░▓▓▓▓▓▓▓ ░▓▓▓▓▓▓▓ ░▓▓▓▓▓▓▓ ░▓▓  ░▓▓ ░▓▓▓ ░▓▓ ░▓▓▓▓▓▓▓                                        
-       *                                ░▓▓▓▓░▓▓ ░▓▓       ░▓▓      ░▓▓   ░▓▓  ░▓▓ ░▓▓▓▓░▓▓ ░▓▓                            *                 
+                                                                                                                                             
+                                                                                                                                             
+                                                                                                                                             
+                                                                                                                                             
+                                       ░▓▓▓ ░▓▓ ░▓▓▓▓▓▓▓ ░▓▓▓▓▓▓▓ ░▓▓▓▓▓▓▓ ░▓▓  ░▓▓ ░▓▓▓ ░▓▓ ░▓▓▓▓▓▓▓                                   *    
+       *                                ░▓▓▓▓░▓▓ ░▓▓       ░▓▓      ░▓▓   ░▓▓  ░▓▓ ░▓▓▓▓░▓▓ ░▓▓                                              
                                         ░▓▓▓▓▓▓▓ ░▓▓▓▓▓▓   ░▓▓      ░▓▓   ░▓▓  ░▓▓ ░▓▓▓▓▓▓▓ ░▓▓▓▓▓▓▓                                         
                                         ░▓▓░▓▓▓▓ ░▓▓       ░▓▓      ░▓▓   ░▓▓  ░▓▓ ░▓▓░▓▓▓▓ ░▓▓                                              
                                        ░▓▓ ░▓▓▓ ░▓▓▓▓▓▓▓  ░▓▓▓▓▓▓▓   ░▓▓   ░▓▓▓▓▓▓▓ ░▓▓ ░▓▓▓ ░▓▓▓▓▓▓▓                                        
@@ -24,31 +28,40 @@ export default class MyHelpClass extends Help {
                *                                                                                                                             
                                           $ nectune yoworld  ===>  The termzine                                                              
                                                                                                                                              
-                                          Get all the posts:                                                                                 
+                                          Get all the posts:                                                                  *              
                                           Curent month  ----  $ nectune yoworld all                                                          
-                                          Past months   ----  $ nectune yoworld [EDITION_ID]                                     *           
+                                          Past months   ----  $ nectune yoworld [EDITION_ID]                                                 
                                                                                                                                              
                                                                                                                                              
                                                                                                                                              
                                           $ nectune cocobingo  ===>  The games                                                               
                                                                                                                                              
                                           Get all the posts:                                                                                 
-                                          Curent month  ----  $ nectune cocobingo all                          *                             
+                                          Curent month  ----  $ nectune cocobingo all                                                        
               *                           Past months   ----  $ nectune cocobingo [EDITION_ID]                                               
-                                   *                                                                                                         
+                                                                                                                    *                        
                                                                                                                                              
                                                                                                                                              
                                           $ nectune peepshow  ===>  The deals                                                                
-                                                                                                                                             
+                                   *                                                                                                         
                                           Search deals (max 3 TAGS)   ----  $ nectune peepshow [TAGS]                                        
                                           Read a single deal          ----  $ nectune peepshow [DEAL_ID]                                     
                                                                                                                                              
                                                                                                                                              
-                                                                                                                             *               
-                                          $ nectune timemachine   ===>  Find old content = [EDITION_ID]                                      
+                                                                                                                                       *     
+                                          $ nectune piou  ===>  Send messages to chat                                                        
+                                                                                                                                             
+                *                                                                                                                            
+                                                                                                                                             
+                                          $ nectune timemachine  ===>  Find old content = [EDITION_ID]                                       
                                                                                                                                              
                                                                                                                                              
-              *                                              New commands soon...                                                            
+                                                                                                                                             
+                                                             New commands soon...                                                  *         
+                           *                                                                                                                 
+                                                                                                                                             
+                                                                                                                                             
+                                                                                                                                             
              
     `)
   }

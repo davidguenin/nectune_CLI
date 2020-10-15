@@ -57,6 +57,9 @@ $ nectune [COMMAND]
 **COMMANDS**
 
 <strong>The termzine</strong>
+
+Get the last article
+
 ```
 $ nectune yoworld
 ```    
@@ -75,6 +78,9 @@ $ nectune yoworld [EDITION_ID]
 ---
 
 <strong>The games</strong>
+
+Get the last game:
+
 ```
 $ nectune cocobingo
 ```  
@@ -92,6 +98,8 @@ $ nectune cocobingo [EDITION_ID]
 
 <strong>The deals</strong>
 
+Get the last deals:
+
 ```
 $ nectune peepshow
 ```   
@@ -108,6 +116,22 @@ Read a single deal:
 
 <strong>Find old content </strong>[EDITION_ID]:
 
+Get all the editions of the games and lives:
+
 ```
 $ nectune timemachine
 ```
+
+---
+
+<strong>Send messages</strong>
+
+Send messages for the different channels. Use tags to target the channel: the name of the channel as tag name.
+
+```
+$ nectune piou
+```
+
+---
+
+<strong>New commands soon...</strong>
