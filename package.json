@@ -1,7 +1,7 @@
 {
   "name": "nectune",
   "description": "Nectune push entertainment directly on your Terminal",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "author": "David Guenin @davdevdesign",
   "bin": {
     "nectune": "./bin/run"
