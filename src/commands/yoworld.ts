@@ -82,6 +82,12 @@ export class YoWorld extends Command {
       //RETURN HEADER
       console.log(customContent( "header") + '\n');
 
+      var listCards = nectuneData.cards.map(function(i: { content: any; }) {
+        return{
+          content: i.content
+        } 
+      });
+
       if (args.edition == "all" || !isNaN(args.edition)){
         //LOOP RECORD
         for (let i = 0 ; i < listCards.length ; i++) {
@@ -91,14 +97,7 @@ export class YoWorld extends Command {
       }
       
       else{
-
         //LAST LIVE ITEM
-        var listCards = nectuneData.cards.map(function(i: { content: any; }) {
-          return{
-            content: i.content
-          } 
-        });
-
         var last = listCards[0].content
         console.log(last)
         console.log(customContent( "message_texte"))

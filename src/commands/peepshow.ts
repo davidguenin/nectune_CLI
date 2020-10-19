@@ -100,7 +100,7 @@ export class PeepShow extends Command {
         //RETURN HEADER
         console.log(customContent( "header_single"));
 
-        console.log( "   " + emoji.get(nectuneData.emoji) + "    " +  chalk.bold.bgBlack.whiteBright(nectuneData.tagline) + "   -   " + nectuneData.company + "\n\n")
+        console.log( "   " + emoji.get(nectuneData.emoji) + "    " +  chalk.bold.magenta(nectuneData.tagline) + "   -   " + nectuneData.company + "\n\n")
         var contentBreak = nectuneData.content.match(/\b[\w']+(?:[^\w]+[\w']+){0,20}\b/g).join('\n');
         var contentBreak = contentBreak.replace(/^/gm, "   ");
         console.log(contentBreak + "\n\n\n" )
@@ -116,8 +116,8 @@ export class PeepShow extends Command {
         //INDEX COMMANDS
         console.log(
           '\n' +
-          chalk.magenta(customText( "arg_txt_one").toUpperCase()) + ' ' + chalk.bgBlack(customText( "arg_code_one")) +
-          chalk.magenta(customText( "arg_txt_two").toUpperCase()) + ' ' +  chalk.bgBlack(customText( "arg_code_two"))
+          chalk.bold(customText( "arg_txt_one").toUpperCase()) + ' ' + chalk.magenta(customText( "arg_code_one")) +
+          chalk.bold(customText( "arg_txt_two").toUpperCase()) + ' ' +  chalk.magenta(customText( "arg_code_two"))
           + 
           '\n\n'
           )
@@ -143,9 +143,9 @@ export class PeepShow extends Command {
             data.push({
               left:"",
               tagline: emoji.get(listDeals[i].emoji) + "    " +  chalk.bold(listDeals[i].tagline),
-              tags: chalk.bold.bgBlack("TAGS:" ) + " " +  chalk.underline(listDeals[i].tag_one) + "  " + chalk.underline(listDeals[i].tag_two) + "  " + chalk.underline(listDeals[i].tag_three),
+              tags: chalk.bold.magenta("TAGS:" ) + " " +  chalk.underline(listDeals[i].tag_one) + "  " + chalk.underline(listDeals[i].tag_two) + "  " + chalk.underline(listDeals[i].tag_three),
               company: listDeals[i].company,
-              id: chalk.bold.bgBlack("ID:" ) + " " + listDeals[i].id,
+              id: chalk.bold.magenta("ID:" ) + " " + listDeals[i].id,
             })
             // CREATE A MARGIN BOTTOM WITH BLANK COLUMN
             data.push({

@@ -79,6 +79,12 @@ export class CocoBingo extends Command {
       //RETURN NOTIFICATION
       console.log(chalk.bold.red(customText( "notification")));
 
+      var listCards = nectuneData.cards.map(function(i: { content: any; }) {
+        return{
+          content: i.content
+        } 
+      });
+
       if (args.edition == "all" || !isNaN(args.edition)){
         //LOOP RECORD
         for (let i = 0 ; i < listCards.length ; i++) {
@@ -88,14 +94,7 @@ export class CocoBingo extends Command {
       }
       
       else{
-
         //LAST LIVE ITEM
-        var listCards = nectuneData.cards.map(function(i: { content: any; }) {
-          return{
-            content: i.content
-          } 
-        });
-
         var last = listCards[0].content
         console.log(last + "\n")
         console.log( chalk.green(customText( "link_text_ba_left")) +  chalk.bold.yellow(customContent( "link_text"))+ chalk.green(customText( "link_text_ba_right"))  + "\n")
